@@ -40,7 +40,9 @@ import flagList from './modules/flag-list'
 import hero from './modules/hero'
 import heroSaas from './modules/hero.saas'
 import heroSplit from './modules/hero.split'
+import heroSplitLaDiabla from './modules/hero.split.ladiabla'
 import heroVideo from './modules/hero.video'
+import parallaxSectionLaDiabla from './modules/parallax.section.ladiabla'
 import logoList from './modules/logo-list'
 import personList from './modules/person-list'
 import pricingList from './modules/pricing-list'
@@ -94,7 +96,9 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	hero,
 	heroSaas,
 	heroSplit,
+	heroSplitLaDiabla,
 	heroVideo,
+	parallaxSectionLaDiabla,
 	logoList,
 	personList,
 	pricingList,

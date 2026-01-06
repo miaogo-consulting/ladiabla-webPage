@@ -18,7 +18,9 @@ export default defineField({
 		{ type: 'hero' },
 		{ type: 'hero.saas' },
 		{ type: 'hero.split' },
+		{ type: 'hero.split.ladiabla' },
 		{ type: 'hero.video' },
+		{ type: 'parallax.section.ladiabla' },
 		{ type: 'logo-list' },
 		{ type: 'person-list' },
 		{ type: 'pricing-list' },
@@ -46,7 +48,7 @@ export default defineField({
 					name: 'blog',
 					of: ['blog-frontpage', 'blog-list', 'blog-post-content'],
 				},
-				{ name: 'hero', of: ['hero', 'hero.saas', 'hero.split', 'hero.video'] },
+				{ name: 'hero', of: ['hero', 'hero.saas', 'hero.split', 'hero.split.ladiabla', 'hero.video'] },
 				{
 					name: 'lists',
 					of: [
