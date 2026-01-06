@@ -17,7 +17,9 @@ export function Img({
 
 	const { src, width, height } = generateSrc(image, w, h)
 
-	const loading = stegaClean(image.loading)
+	// Validate loading prop - only accept exact "lazy" or "eager", reject corrupted values
+	const rawLoading = stegaClean(image.loading)
+	const loading = (rawLoading === 'lazy' || rawLoading === 'eager') ? rawLoading : undefined
 
 	return (
 		<NextImage
@@ -48,7 +50,9 @@ export function Source({
 	const { src, width, height } = generateSrc(image, w, h)
 	const { props: imageProps } = getImageProps({ src, width, height, alt: '' })
 
-	if (stegaClean(image.loading) === 'eager') {
+	// Validate loading before preload
+	const rawLoading = stegaClean(image.loading)
+	if (rawLoading === 'eager') {
 		preload(imageProps.src, { as: 'image' })
 	}
 
