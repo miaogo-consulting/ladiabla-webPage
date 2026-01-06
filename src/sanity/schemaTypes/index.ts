@@ -19,6 +19,8 @@ import testimonial from './misc/testimonial'
 
 // objects
 import cta from './objects/cta'
+import galleryImage from './objects/gallery.image'
+import galleryText from './objects/gallery.text'
 import icon from './objects/icon'
 import img from './objects/img'
 import link from './objects/link'
@@ -28,6 +30,7 @@ import moduleOptions from './objects/module-options'
 
 // modules
 import accordionList from './modules/accordion-list'
+import bentoGalleryLaDiabla from './modules/bento.gallery.ladiabla'
 import blogFrontpage from './modules/blog-frontpage'
 import blogList from './modules/blog-list'
 import blogPostContent from './modules/blog-post-content'
@@ -75,6 +78,8 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 
 	// objects
 	cta,
+	galleryImage,
+	galleryText,
 	icon,
 	img,
 	link,
@@ -84,6 +89,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 
 	// modules
 	accordionList,
+	bentoGalleryLaDiabla,
 	blogFrontpage,
 	blogList,
 	blogPostContent,

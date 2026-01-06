@@ -6,6 +6,7 @@ export default defineField({
 	type: 'array',
 	of: [
 		{ type: 'accordion-list' },
+		{ type: 'bento.gallery.ladiabla' },
 		{ type: 'blog-frontpage' },
 		{ type: 'blog-list' },
 		{ type: 'blog-post-content' },
