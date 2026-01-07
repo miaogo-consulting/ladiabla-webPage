@@ -26,7 +26,7 @@ export default async function Header() {
 						rel="noopener noreferrer"
 						className="hidden border border-amber-700 px-6 py-2 text-sm font-light uppercase tracking-[0.15em] text-amber-800 transition-all duration-300 hover:bg-amber-700 hover:text-white md:block"
 					>
-						{reserveCTA?.label || 'Reservar'}
+						{(reserveCTA as any)?.label || 'Reservar'}
 					</Link>
 				)}
 
@@ -82,7 +82,7 @@ export default async function Header() {
 							rel="noopener noreferrer"
 							className="mt-8 border border-amber-700 px-8 py-3 text-center text-sm font-light uppercase tracking-[0.2em] text-amber-800 transition-all duration-300 hover:bg-amber-700 hover:text-white md:hidden"
 						>
-							{reserveCTA?.label || 'Reservar Mesa'}
+							{(reserveCTA as any)?.label || 'Reservar Mesa'}
 						</Link>
 					)}
 				</div>
