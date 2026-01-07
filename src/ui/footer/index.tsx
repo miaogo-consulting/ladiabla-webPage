@@ -120,7 +120,7 @@ export default async function Footer() {
 								rel="noopener noreferrer"
 								className="group mt-6 inline-block overflow-hidden border border-amber-700 px-10 py-3.5 text-center text-sm font-light uppercase tracking-[0.2em] text-amber-800 transition-all duration-300 hover:border-amber-800 hover:bg-amber-700 hover:text-white hover:shadow-lg"
 							>
-								<span className="relative">{reserveCTA?.label || 'Reservar Mesa'}</span>
+								<span className="relative">{(reserveCTA as any)?.label || 'Reservar Mesa'}</span>
 							</Link>
 						)}
 					</div>
