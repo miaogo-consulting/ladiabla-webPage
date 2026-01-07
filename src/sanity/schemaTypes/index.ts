@@ -39,6 +39,7 @@ import callout from './modules/callout'
 import cardList from './modules/card-list'
 import creativeModule from './modules/creative'
 import customHtml from './modules/custom-html'
+import dividerText from './modules/divider.text'
 import flagList from './modules/flag-list'
 import hero from './modules/hero'
 import heroSaas from './modules/hero.saas'
@@ -98,6 +99,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	cardList,
 	creativeModule,
 	customHtml,
+	dividerText,
 	flagList,
 	hero,
 	heroSaas,

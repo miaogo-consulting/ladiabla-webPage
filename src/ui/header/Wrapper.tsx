@@ -62,8 +62,8 @@ export default function Wrapper({
 			ref={ref}
 			className={cn(
 				className,
-				'transition-all duration-300',
-				mounted && !isScrolled && 'bg-transparent border-transparent backdrop-blur-none',
+				'transition-all duration-500 ease-out',
+				mounted && !isScrolled && '!bg-transparent !border-transparent !backdrop-blur-none shadow-none',
 			)}
 			role="banner"
 		>

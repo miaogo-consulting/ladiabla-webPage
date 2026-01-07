@@ -6,6 +6,7 @@ export default defineType({
 	type: 'document',
 	groups: [
 		{ name: 'branding', default: true },
+		{ name: 'contact', title: 'Contact Info' },
 		{ name: 'info' },
 		{ name: 'navigation' },
 	],
@@ -27,6 +28,61 @@ export default defineType({
 			name: 'logo',
 			type: 'logo',
 			group: 'branding',
+		}),
+		defineField({
+			name: 'phone',
+			title: 'Phone Number',
+			type: 'string',
+			group: 'contact',
+		}),
+		defineField({
+			name: 'whatsappNumber',
+			title: 'WhatsApp Number',
+			description: 'Phone number for WhatsApp reservations (e.g., 5215512345678)',
+			type: 'string',
+			group: 'contact',
+		}),
+		defineField({
+			name: 'reservationMessage',
+			title: 'WhatsApp Reservation Message',
+			description: 'Pre-filled message when clicking reservation button',
+			type: 'text',
+			rows: 2,
+			group: 'contact',
+		}),
+		defineField({
+			name: 'email',
+			title: 'Email',
+			type: 'string',
+			group: 'contact',
+		}),
+		defineField({
+			name: 'address',
+			title: 'Address',
+			type: 'text',
+			rows: 3,
+			group: 'contact',
+		}),
+		defineField({
+			name: 'mapsLink',
+			title: 'Google Maps Link',
+			type: 'url',
+			group: 'contact',
+		}),
+		defineField({
+			name: 'hours',
+			title: 'Business Hours',
+			type: 'array',
+			of: [
+				{
+					type: 'object',
+					fields: [
+						{ name: 'days', type: 'string', title: 'Days' },
+						{ name: 'hours', type: 'string', title: 'Hours' },
+					],
+				},
+			],
+			group: 'contact',
 		}),
 		defineField({
 			name: 'announcements',

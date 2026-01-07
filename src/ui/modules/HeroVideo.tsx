@@ -26,11 +26,10 @@ export default function HeroVideo({
 	const alignItems = stegaClean(ai)
 	const videoUrl = video?.asset?.url || video?.url
 
-	console.log('HeroVideo DEBUG:', { heading, video, videoUrl, props })
-
 	return (
 		<section
-			className="relative grid min-h-screen overflow-hidden *:col-span-full *:row-span-full"
+			className="relative grid overflow-hidden *:col-span-full *:row-span-full"
+			style={{ height: '110vh' }}
 			{...moduleProps(props)}
 		>
 			{/* Video Background */}
@@ -46,27 +45,27 @@ export default function HeroVideo({
 				</video>
 			)}
 
-			{/* Dark Overlay */}
-			<div className="bg-black/40" />
+			{/* Elegant gradient overlay */}
+			<div className="bg-gradient-to-b from-black/50 via-black/30 to-black/50" />
 
 			{/* Content */}
-			<div className="section flex w-full flex-col text-balance text-white">
+			<div className="section flex h-full w-full flex-col text-balance text-white">
 				<div
-					className={cn('richtext relative isolate mx-auto max-w-4xl text-center', {
-						'mb-8': alignItems === 'start',
+					className={cn('richtext relative isolate mx-auto w-full max-w-5xl px-6', {
+						'mt-20 md:mt-32': alignItems === 'start',
 						'my-auto': alignItems === 'center',
-						'mt-auto': alignItems === 'end',
+						'mb-20 mt-auto md:mb-32': alignItems === 'end',
 					})}
 					style={{ textAlign }}
 				>
 					{heading && (
-						<h1 className="text-6xl font-bold uppercase tracking-wider md:text-8xl">
+						<h1 className="font-serif text-5xl font-light uppercase tracking-[0.15em] drop-shadow-2xl md:text-7xl lg:text-8xl xl:text-9xl">
 							{heading}
 						</h1>
 					)}
 
 					{content && (
-						<div className="mt-6 text-xl md:text-2xl">
+						<div className="mt-8 font-light leading-relaxed drop-shadow-lg md:text-xl lg:text-2xl">
 							<PortableText value={content} />
 						</div>
 					)}

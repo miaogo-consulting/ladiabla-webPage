@@ -16,7 +16,7 @@ export default defineType({
 			name: 'heading',
 			type: 'string',
 			group: 'content',
-			description: 'Multi-word heading (each word on new line)',
+			description: 'Multi-word heading (use line breaks for multiple lines)',
 		}),
 		defineField({
 			name: 'backgroundImage',

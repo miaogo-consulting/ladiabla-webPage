@@ -15,6 +15,7 @@ export default defineField({
 		{ type: 'card-list' },
 		{ type: 'creative-module' },
 		{ type: 'custom-html' },
+		{ type: 'divider.text' },
 		{ type: 'flag-list' },
 		{ type: 'hero' },
 		{ type: 'hero.saas' },

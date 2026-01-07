@@ -7,6 +7,7 @@ import Breadcrumbs from './Breadcrumbs'
 import Callout from './Callout'
 import CardList from './CardList'
 import CustomHTML from './CustomHTML'
+import DividerText from './DividerText'
 import FlagList from './FlagList'
 import Hero from './Hero'
 import HeroSplit from './HeroSplit'
@@ -38,6 +39,7 @@ const MODULE_MAP = {
 	'card-list': CardList,
 	'creative-module': dynamic(() => import('./CreativeModule')),
 	'custom-html': CustomHTML,
+	'divider.text': DividerText,
 	'flag-list': FlagList,
 	hero: Hero,
 	'hero.split': HeroSplit,

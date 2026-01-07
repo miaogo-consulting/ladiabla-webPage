@@ -34,11 +34,11 @@ export default function ParallaxSectionLaDiabla({
 	}, [])
 
 	return (
-		<section ref={sectionRef} className="relative bg-stone-100 py-24 lg:py-32">
-			{/* Background Image with Parallax */}
+		<section ref={sectionRef} className="relative z-10 bg-stone-50 py-20 lg:py-31">
+			{/* Background Image with Parallax - clipped to section bounds */}
 			{backgroundImage && (
 				<div
-					className="absolute inset-0 overflow-hidden opacity-30"
+					className="absolute inset-0 -z-10 overflow-hidden opacity-20"
 					style={{ transform: `translateY(${offsetY * 0.5}px)` }}
 				>
 					<Img
@@ -48,43 +48,31 @@ export default function ParallaxSectionLaDiabla({
 				</div>
 			)}
 
-			{/* Content Container */}
-			<div className="relative mx-auto max-w-screen-xl px-4">
+			{/* Content Container - Flex layout lado a lado */}
+			<div className="relative mx-auto max-w-screen-2xl px-6 md:px-12 lg:px-16">
 				<div
 					className={cn(
-						'grid items-center gap-8 lg:grid-cols-2',
-						imagePosition === 'right' && 'lg:grid-flow-dense',
+						'flex flex-col items-center justify-between gap-12 lg:flex-row lg:gap-20',
+						imagePosition === 'right' && 'lg:flex-row-reverse',
 					)}
 				>
-					{/* Overlapping Image - Extends beyond section boundaries */}
-					<div
-						className={cn(
-							'relative z-20 mx-auto max-w-md lg:max-w-lg',
-							imagePosition === 'right' && 'lg:col-start-2',
-						)}
-					>
-						{overlayImage && (
-							<div className="relative -my-32 lg:-my-48">
-								<Img
-									image={overlayImage}
-									className="w-full drop-shadow-2xl"
-								/>
-							</div>
-						)}
-					</div>
+					{/* Overlapping Image - Extends beyond section */}
+					{overlayImage && (
+						<div className="relative -my-32 flex-shrink-0 lg:-my-48">
+							<Img
+								image={overlayImage}
+								className="w-80 drop-shadow-2xl md:w-[26rem] lg:w-[31rem] xl:w-[36rem]"
+							/>
+						</div>
+					)}
 
 					{/* Text Content */}
-					<div
-						className={cn(
-							'relative z-10 text-center lg:text-left',
-							imagePosition === 'right' && 'lg:col-start-1 lg:text-right',
-						)}
-					>
+					<div className="flex-1 text-center lg:text-left">
 						{heading && (
-							<h2 className="font-serif text-5xl font-normal uppercase leading-tight tracking-wider text-stone-800 md:text-6xl lg:text-7xl">
-								{heading.split(' ').map((word, i) => (
+							<h2 className="font-serif text-3xl font-normal uppercase leading-[1.2] tracking-[0.15em] text-stone-800 md:text-4xl lg:text-5xl">
+								{heading.split('\n').map((line, i) => (
 									<span key={i} className="block">
-										{word}
+										{line}
 									</span>
 								))}
 							</h2>

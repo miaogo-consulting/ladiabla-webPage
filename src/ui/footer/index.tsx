@@ -1,51 +1,153 @@
 import { getSite } from '@/sanity/lib/queries'
-import Navigation from './Navigation'
 import Social from '@/ui/Social'
-import LanguageSwitcher from '@/ui/LanguageSwitcher'
 import { PortableText } from 'next-sanity'
 import Link from 'next/link'
 import { Img } from '@/ui/Img'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 export default async function Footer() {
-	const { title, blurb, logo, copyright } = await getSite()
+	const { title, blurb, logo, copyright, phone, email, address, mapsLink, hours, ctas, whatsappNumber, reservationMessage } =
+		await getSite()
 
 	const logoImage = logo?.image?.light || logo?.image?.default
+	const reserveCTA = ctas?.[0] // First CTA for reserve button
+	const reserveLink = whatsappNumber
+		? `https://wa.me/${whatsappNumber}${reservationMessage ? `?text=${encodeURIComponent(reservationMessage)}` : ''}`
+		: (reserveCTA?.link?.internal?.metadata?.slug?.current || reserveCTA?.link?.external || '/reservaciones')
 
 	return (
-		<footer className="bg-ink text-canvas" role="contentinfo">
-			<div className="section flex flex-wrap justify-between gap-x-12 gap-y-8 max-sm:flex-col">
-				<div className="flex flex-col gap-3 self-stretch">
-					<Link className="h3 md:h2 max-w-max" href="/">
-						{logoImage ? (
-							<Img
-								className="max-h-[1.5em] w-auto"
-								image={logoImage}
-								alt={logo?.name || title}
-							/>
-						) : (
-							title
-						)}
-					</Link>
+		<footer className="relative overflow-hidden bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100" role="contentinfo">
+			{/* Decorative line */}
+			<div className="h-px bg-gradient-to-r from-transparent via-amber-700/50 to-transparent shadow-sm" />
 
-					{blurb && (
-						<div className="max-w-sm text-sm text-balance">
-							<PortableText value={blurb} />
+			{/* Main Footer Content */}
+			<div className="relative mx-auto max-w-screen-xl px-6 py-16 md:px-12 md:py-20">
+				<div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+					{/* Column 1: Logo & Description */}
+					<div className="space-y-6">
+						<Link className="block max-w-max" href="/">
+							{logoImage ? (
+								<Img
+									className="h-20 w-auto"
+									image={logoImage}
+									alt={logo?.name || title}
+								/>
+							) : (
+								<span className="font-serif text-3xl font-normal text-stone-800">
+									{title}
+								</span>
+							)}
+						</Link>
+
+						{blurb && (
+							<div className="max-w-xs text-sm leading-relaxed text-stone-600">
+								<PortableText value={blurb} />
+							</div>
+						)}
+					</div>
+
+					{/* Column 2: Contact */}
+					{(phone || email || address) && (
+						<div className="space-y-6">
+							<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
+								Contacto
+							</h3>
+							<div className="space-y-4 text-sm text-stone-600">
+								{phone && (
+									<a
+										href={`tel:${phone}`}
+										className="flex items-center gap-3 transition-colors hover:text-amber-700"
+									>
+										<Phone className="h-4 w-4 flex-shrink-0" />
+										<span>{phone}</span>
+									</a>
+								)}
+								{email && (
+									<a
+										href={`mailto:${email}`}
+										className="flex items-center gap-3 transition-colors hover:text-amber-700"
+									>
+										<Mail className="h-4 w-4 flex-shrink-0" />
+										<span>{email}</span>
+									</a>
+								)}
+								{address && (
+									<a
+										href={mapsLink || '#'}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-start gap-3 transition-colors hover:text-amber-700"
+									>
+										<MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
+										<span className="whitespace-pre-line">{address}</span>
+									</a>
+								)}
+							</div>
 						</div>
 					)}
 
-					<Social className="mb-auto -ml-2" />
+					{/* Column 3: Hours */}
+					{hours && hours.length > 0 && (
+						<div className="space-y-6">
+							<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
+								Horarios
+							</h3>
+							<div className="space-y-3 text-sm text-stone-600">
+								{hours.map((schedule, idx) => (
+									<div key={idx} className={idx === 0 ? 'flex items-start gap-3' : 'ml-7'}>
+										{idx === 0 && <Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />}
+										<div>
+											<p className="font-medium text-stone-800">{schedule.days}</p>
+											<p>{schedule.hours}</p>
+										</div>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
 
-					<LanguageSwitcher className="mt-4 max-w-max" />
+					{/* Column 4: Social & CTA */}
+					<div className="space-y-6">
+						<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
+							Síguenos
+						</h3>
+						<Social className="flex gap-4 [&_a]:text-stone-600 [&_a]:transition-colors [&_a:hover]:text-amber-700" />
+
+						{(reserveCTA || whatsappNumber) && (
+							<Link
+								href={reserveLink}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="group mt-6 inline-block overflow-hidden border border-amber-700 px-10 py-3.5 text-center text-sm font-light uppercase tracking-[0.2em] text-amber-800 transition-all duration-300 hover:border-amber-800 hover:bg-amber-700 hover:text-white hover:shadow-lg"
+							>
+								<span className="relative">{reserveCTA?.label || 'Reservar Mesa'}</span>
+							</Link>
+						)}
+					</div>
 				</div>
-
-				<Navigation />
 			</div>
 
-			{copyright && (
-				<div className="border-canvas/20 mx-auto flex max-w-screen-xl flex-wrap justify-center gap-x-6 gap-y-2 border-t p-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-sm [&_a:hover]:underline">
-					<PortableText value={copyright} />
+			{/* Bottom Bar */}
+			<div className="border-t border-stone-200 bg-stone-100 px-6 py-6 md:px-12">
+				<div className="mx-auto max-w-screen-xl space-y-2 text-center text-xs text-stone-500">
+					{copyright && (
+						<div className="[&_a]:underline [&_a]:transition-colors [&_a:hover]:text-amber-700">
+							<PortableText value={copyright} />
+						</div>
+					)}
+					<div className="text-stone-400">
+						Made by{' '}
+						<a
+							href="https://www.miaogo.com.mx/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="font-medium text-stone-500 transition-colors hover:text-amber-700"
+						>
+							Miaogo
+						</a>
+					</div>
 				</div>
-			)}
+			</div>
 		</footer>
 	)
 }
