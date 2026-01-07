@@ -95,7 +95,7 @@ export default async function Footer() {
 							<div className="inline-flex items-start gap-3 text-left text-sm text-stone-600">
 								<Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />
 								<div className="space-y-2">
-									{hours.map((schedule, idx) => (
+									{hours.map((schedule: { days: string; hours: string }, idx: number) => (
 										<div key={idx} className="flex items-baseline gap-2">
 											<span className="font-medium text-stone-800 min-w-[100px]">{schedule.days}</span>
 											<span className="text-stone-600">{schedule.hours}</span>
