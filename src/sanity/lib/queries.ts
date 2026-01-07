@@ -93,6 +93,10 @@ export const MODULES_QUERY = groq`
 		video{
 			...,
 			asset->{ url }
+		},
+		videoMobile{
+			...,
+			asset->{ url }
 		}
 	},
 	_type == 'menu.explorer' => {
