@@ -3,7 +3,6 @@ import Wrapper from './Wrapper'
 import Link from 'next/link'
 import { Img } from '@/ui/Img'
 import Navigation from './Navigation'
-import { cn } from '@/lib/utils'
 import CloseOnNavigation from './CloseOnNavigation'
 
 export default async function Header() {

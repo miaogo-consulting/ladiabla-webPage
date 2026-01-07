@@ -16,6 +16,16 @@ type MenuItem = {
 	}
 }
 
+// Validar que la URL sea solo de Sanity CDN
+function isSafeMenuURL(url: string): boolean {
+	try {
+		const parsedUrl = new URL(url)
+		return parsedUrl.hostname === 'cdn.sanity.io'
+	} catch {
+		return false
+	}
+}
+
 export default function MenuExplorer({
 	items,
 }: Partial<{
@@ -63,8 +73,9 @@ export default function MenuExplorer({
 							}
 						}}
 						onClick={() => {
-							if (item.menuFile?.asset?.url) {
-								setSelectedMenu(item.menuFile.asset.url)
+							const url = item.menuFile?.asset?.url
+							if (url && isSafeMenuURL(url)) {
+								setSelectedMenu(url)
 							}
 						}}
 					>
@@ -131,8 +142,8 @@ export default function MenuExplorer({
 				))}
 			</section>
 
-			{/* PDF/Image Viewer Modal */}
-			{selectedMenu && (
+			{/* PDF/Image Viewer Modal - Solo muestra si la URL es válida */}
+			{selectedMenu && isSafeMenuURL(selectedMenu) && (
 				<div
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
 					onClick={() => setSelectedMenu(null)}
@@ -156,12 +167,15 @@ export default function MenuExplorer({
 								src={selectedMenu}
 								className="h-[90vh] w-full min-w-[80vw]"
 								title="Menu PDF"
+								sandbox="allow-same-origin"
+								referrerPolicy="no-referrer"
 							/>
 						) : (
 							<img
 								src={selectedMenu}
 								alt="Menu"
 								className="max-h-[90vh] w-auto"
+								referrerPolicy="no-referrer"
 							/>
 						)}
 					</div>
