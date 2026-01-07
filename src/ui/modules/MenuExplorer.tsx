@@ -24,10 +24,14 @@ export default function MenuExplorer({
 	Sanity.Module) {
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 	const [selectedMenu, setSelectedMenu] = useState<string | null>(null)
+	const [isHoveredSingle, setIsHoveredSingle] = useState(false)
 
 	if (!items || items.length === 0) return null
 
 	const getColumnWidth = (index: number) => {
+		// Si solo hay 1 item, siempre 100%
+		if (items.length === 1) return '100%'
+
 		if (hoveredIndex === null) return `${100 / items.length}%`
 		if (hoveredIndex === index) return '70%'
 		return `${30 / (items.length - 1)}%`
@@ -39,10 +43,25 @@ export default function MenuExplorer({
 				{items.map((item, index) => (
 					<div
 						key={item._key}
-						className="relative cursor-pointer transition-all duration-500 ease-out"
+						className={cn(
+							'relative cursor-pointer',
+							items.length > 1 && 'transition-all duration-500 ease-out'
+						)}
 						style={{ width: getColumnWidth(index) }}
-						onMouseEnter={() => setHoveredIndex(index)}
-						onMouseLeave={() => setHoveredIndex(null)}
+						onMouseEnter={() => {
+							if (items.length > 1) {
+								setHoveredIndex(index)
+							} else {
+								setIsHoveredSingle(true)
+							}
+						}}
+						onMouseLeave={() => {
+							if (items.length > 1) {
+								setHoveredIndex(null)
+							} else {
+								setIsHoveredSingle(false)
+							}
+						}}
 						onClick={() => {
 							if (item.menuFile?.asset?.url) {
 								setSelectedMenu(item.menuFile.asset.url)
@@ -54,9 +73,19 @@ export default function MenuExplorer({
 							<div className="absolute inset-0">
 								<Img
 									image={item.backgroundImage}
-									className="h-full w-full object-cover"
+									className={cn(
+										'h-full w-full object-cover transition-transform duration-300',
+										items.length === 1 && isHoveredSingle && 'scale-105'
+									)}
 								/>
-								<div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+								<div
+									className={cn(
+										'absolute inset-0 bg-gradient-to-b transition-colors duration-300',
+										items.length === 1 && isHoveredSingle
+											? 'from-black/30 via-black/10 to-black/50'
+											: 'from-black/40 via-black/20 to-black/60'
+									)}
+								/>
 							</div>
 						)}
 
@@ -64,23 +93,31 @@ export default function MenuExplorer({
 						<div className="relative flex h-full items-center justify-center">
 							<h2
 								className={cn(
-									'font-serif uppercase tracking-[0.2em] text-white transition-all duration-500',
-									hoveredIndex === index
-										? 'text-5xl md:text-6xl lg:text-7xl'
-										: 'text-3xl md:text-4xl lg:text-5xl',
+									'font-serif uppercase tracking-[0.2em] text-white transition-all duration-300',
+									items.length === 1
+										? isHoveredSingle
+											? 'text-6xl md:text-7xl lg:text-8xl xl:text-9xl'
+											: 'text-5xl md:text-6xl lg:text-7xl xl:text-8xl'
+										: hoveredIndex === index
+											? 'text-5xl md:text-6xl lg:text-7xl'
+											: 'text-3xl md:text-4xl lg:text-5xl',
 								)}
-								style={{
-									writingMode: hoveredIndex === index ? 'horizontal-tb' : 'vertical-rl',
-									textOrientation: hoveredIndex === index ? 'mixed' : 'mixed',
-									transform: hoveredIndex === index ? 'none' : 'rotate(180deg)',
-								}}
+								style={
+									items.length === 1
+										? undefined
+										: {
+												writingMode: hoveredIndex === index ? 'horizontal-tb' : 'vertical-rl',
+												textOrientation: hoveredIndex === index ? 'mixed' : 'mixed',
+												transform: hoveredIndex === index ? 'none' : 'rotate(180deg)',
+											}
+								}
 							>
 								{item.title}
 							</h2>
 						</div>
 
 						{/* Hover Instruction */}
-						{hoveredIndex === index && (
+						{(items.length === 1 || hoveredIndex === index) && (
 							<div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-sm uppercase tracking-wider text-white/80">
 								Click para ver menú
 							</div>
@@ -102,12 +139,18 @@ export default function MenuExplorer({
 				>
 					<button
 						className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-						onClick={() => setSelectedMenu(null)}
+						onClick={(e) => {
+							e.stopPropagation()
+							setSelectedMenu(null)
+						}}
 					>
 						<X className="h-6 w-6" />
 					</button>
 
-					<div className="max-h-[90vh] max-w-6xl overflow-auto">
+					<div
+						className="max-h-[90vh] max-w-6xl overflow-auto"
+						onClick={(e) => e.stopPropagation()}
+					>
 						{selectedMenu.endsWith('.pdf') ? (
 							<iframe
 								src={selectedMenu}

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Img } from '@/ui/Img'
 import Navigation from './Navigation'
 import { cn } from '@/lib/utils'
+import CloseOnNavigation from './CloseOnNavigation'
 
 export default async function Header() {
 	const { title, logo, ctas, whatsappNumber, reservationMessage } = await getSite()
@@ -16,6 +17,7 @@ export default async function Header() {
 
 	return (
 		<Wrapper className="border-stone-200/50 bg-stone-50/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300">
+			<CloseOnNavigation />
 			<div className="mx-auto flex max-w-screen-xl items-center justify-between px-6 py-4 md:px-12 md:py-5">
 				{/* Left: Reservar Button */}
 				{(reserveCTA || whatsappNumber) && (

@@ -95,6 +95,15 @@ export const MODULES_QUERY = groq`
 			asset->{ url }
 		}
 	},
+	_type == 'menu.explorer' => {
+		items[]{
+			...,
+			menuFile{
+				...,
+				asset->{ url }
+			}
+		}
+	},
 	_type == 'hero.split' => {
 		content[]{
 			...,
