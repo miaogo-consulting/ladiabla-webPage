@@ -5,7 +5,6 @@ export default function ({
 	_type,
 	options,
 	_key,
-	bgImage,
 	...props
 }: Partial<Sanity.Module>) {
 	return {
