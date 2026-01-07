@@ -22,10 +22,10 @@ export default async function Footer() {
 
 			{/* Main Footer Content */}
 			<div className="relative mx-auto max-w-screen-xl px-6 py-16 md:px-12 md:py-20">
-				<div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+				<div className="grid gap-12 text-center md:grid-cols-2 md:text-left lg:grid-cols-4">
 					{/* Column 1: Logo & Description */}
 					<div className="space-y-6">
-						<Link className="block max-w-max" href="/">
+						<Link className="mx-auto block max-w-max md:mx-0" href="/">
 							{logoImage ? (
 								<Img
 									className="h-20 w-auto"
@@ -40,7 +40,7 @@ export default async function Footer() {
 						</Link>
 
 						{blurb && (
-							<div className="max-w-xs text-sm leading-relaxed text-stone-600">
+							<div className="mx-auto max-w-xs text-sm leading-relaxed text-stone-600 md:mx-0">
 								<PortableText value={blurb} />
 							</div>
 						)}
@@ -52,7 +52,7 @@ export default async function Footer() {
 							<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
 								Contacto
 							</h3>
-							<div className="space-y-4 text-sm text-stone-600">
+							<div className="inline-flex flex-col space-y-4 text-left text-sm text-stone-600">
 								{phone && (
 									<a
 										href={`tel:${phone}`}
@@ -92,16 +92,16 @@ export default async function Footer() {
 							<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
 								Horarios
 							</h3>
-							<div className="space-y-3 text-sm text-stone-600">
-								{hours.map((schedule, idx) => (
-									<div key={idx} className={idx === 0 ? 'flex items-start gap-3' : 'ml-7'}>
-										{idx === 0 && <Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />}
-										<div>
-											<p className="font-medium text-stone-800">{schedule.days}</p>
-											<p>{schedule.hours}</p>
+							<div className="inline-flex items-start gap-3 text-left text-sm text-stone-600">
+								<Clock className="h-4 w-4 flex-shrink-0 mt-0.5" />
+								<div className="space-y-2">
+									{hours.map((schedule, idx) => (
+										<div key={idx} className="flex items-baseline gap-2">
+											<span className="font-medium text-stone-800 min-w-[100px]">{schedule.days}</span>
+											<span className="text-stone-600">{schedule.hours}</span>
 										</div>
-									</div>
-								))}
+									))}
+								</div>
 							</div>
 						</div>
 					)}
@@ -111,7 +111,7 @@ export default async function Footer() {
 						<h3 className="font-serif text-base font-light uppercase tracking-[0.2em] text-stone-900">
 							Síguenos
 						</h3>
-						<Social className="flex gap-4 [&_a]:text-stone-600 [&_a]:transition-colors [&_a:hover]:text-amber-700" />
+						<Social className="flex justify-center gap-4 md:justify-start [&_a]:text-stone-600 [&_a]:transition-colors [&_a:hover]:text-amber-700" />
 
 						{(reserveCTA || whatsappNumber) && (
 							<Link

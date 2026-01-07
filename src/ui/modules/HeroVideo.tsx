@@ -6,6 +6,7 @@ export default function HeroVideo({
 	heading,
 	content,
 	video,
+	videoMobile,
 	textAlign: ta = 'center',
 	alignItems: ai = 'center',
 	...props
@@ -18,6 +19,12 @@ export default function HeroVideo({
 			url: string
 		}
 	}
+	videoMobile?: {
+		url: string
+		asset?: {
+			url: string
+		}
+	}
 	textAlign: React.CSSProperties['textAlign']
 	alignItems: React.CSSProperties['alignItems']
 }> &
@@ -25,6 +32,7 @@ export default function HeroVideo({
 	const textAlign = stegaClean(ta)
 	const alignItems = stegaClean(ai)
 	const videoUrl = video?.asset?.url || video?.url
+	const videoMobileUrl = videoMobile?.asset?.url || videoMobile?.url
 
 	return (
 		<section
@@ -34,15 +42,44 @@ export default function HeroVideo({
 		>
 			{/* Video Background */}
 			{videoUrl && (
-				<video
-					autoPlay
-					loop
-					muted
-					playsInline
-					className="size-full object-cover"
-				>
-					<source src={videoUrl} type="video/mp4" />
-				</video>
+				<>
+					{/* Desktop Video */}
+					<video
+						autoPlay
+						loop
+						muted
+						playsInline
+						className="hidden size-full object-cover md:block"
+					>
+						<source src={videoUrl} type="video/mp4" />
+					</video>
+
+					{/* Mobile Video */}
+					{videoMobileUrl && (
+						<video
+							autoPlay
+							loop
+							muted
+							playsInline
+							className="block size-full object-cover md:hidden"
+						>
+							<source src={videoMobileUrl} type="video/mp4" />
+						</video>
+					)}
+
+					{/* Fallback: Show desktop video on mobile if no mobile video */}
+					{!videoMobileUrl && (
+						<video
+							autoPlay
+							loop
+							muted
+							playsInline
+							className="block size-full object-cover md:hidden"
+						>
+							<source src={videoUrl} type="video/mp4" />
+						</video>
+					)}
+				</>
 			)}
 
 			{/* Elegant gradient overlay */}

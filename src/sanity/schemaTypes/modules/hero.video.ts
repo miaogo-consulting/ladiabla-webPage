@@ -39,9 +39,19 @@ export default defineType({
 		}),
 		defineField({
 			name: 'video',
-			title: 'Background Video',
+			title: 'Background Video (Desktop)',
 			type: 'file',
-			description: 'Upload an MP4 video (will loop automatically)',
+			description: 'Upload an MP4 video for desktop (will loop automatically)',
+			options: {
+				accept: 'video/mp4,video/webm',
+			},
+			group: 'video',
+		}),
+		defineField({
+			name: 'videoMobile',
+			title: 'Background Video (Mobile)',
+			type: 'file',
+			description: 'Optional: Upload a different video for mobile (portrait/vertical format recommended)',
 			options: {
 				accept: 'video/mp4,video/webm',
 			},
