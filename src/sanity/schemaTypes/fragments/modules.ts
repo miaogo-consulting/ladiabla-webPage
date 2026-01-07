@@ -24,6 +24,7 @@ export default defineField({
 		{ type: 'hero.video' },
 		{ type: 'parallax.section.ladiabla' },
 		{ type: 'logo-list' },
+		{ type: 'menu.explorer' },
 		{ type: 'person-list' },
 		{ type: 'pricing-list' },
 		{ type: 'richtext-module' },

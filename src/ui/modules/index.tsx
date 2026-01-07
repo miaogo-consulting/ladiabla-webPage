@@ -16,6 +16,7 @@ import HeroSaaS from './HeroSaaS'
 import HeroVideo from './HeroVideo'
 import ParallaxSectionLaDiabla from './ParallaxSectionLaDiabla'
 import LogoList from './LogoList'
+import MenuExplorer from './MenuExplorer'
 import RichtextModule from './RichtextModule'
 import ScheduleModule from './ScheduleModule'
 import SearchModule from './SearchModule'
@@ -48,6 +49,7 @@ const MODULE_MAP = {
 	'hero.video': HeroVideo,
 	'parallax.section.ladiabla': ParallaxSectionLaDiabla,
 	'logo-list': LogoList,
+	'menu.explorer': MenuExplorer,
 	'person-list': dynamic(() => import('./PersonList')),
 	'pricing-list': dynamic(() => import('./PricingList')),
 	'richtext-module': RichtextModule,

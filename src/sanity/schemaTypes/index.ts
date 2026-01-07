@@ -48,6 +48,7 @@ import heroSplitLaDiabla from './modules/hero.split.ladiabla'
 import heroVideo from './modules/hero.video'
 import parallaxSectionLaDiabla from './modules/parallax.section.ladiabla'
 import logoList from './modules/logo-list'
+import menuExplorer from './modules/menu.explorer'
 import personList from './modules/person-list'
 import pricingList from './modules/pricing-list'
 import richtextModule from './modules/richtext-module'
@@ -108,6 +109,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
 	heroVideo,
 	parallaxSectionLaDiabla,
 	logoList,
+	menuExplorer,
 	personList,
 	pricingList,
 	richtextModule,
